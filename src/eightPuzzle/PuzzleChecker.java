@@ -1,3 +1,4 @@
+package eightPuzzle;
 /******************************************************************************
  *  Compilation:  javac PuzzleChecker.java
  *  Execution:    java  PuzzleChecker filename1.txt filename2.txt ...
@@ -26,9 +27,12 @@
  * 
  ******************************************************************************/
 
+
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.Stopwatch;
+import puzzle.Board;
+import puzzle.Solver;
 
 public class PuzzleChecker {
 

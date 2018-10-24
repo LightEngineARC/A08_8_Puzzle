@@ -1,3 +1,4 @@
+package eightPuzzle;
 /******************************************************************************
  *  Compilation:  javac SolverVisualizer.java
  *  Execution:    java SolverVisualizer filename
@@ -24,6 +25,8 @@ import java.awt.Font;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
+import puzzle.Board;
+import puzzle.Solver;
 
 public class SolverVisualizer {
 
@@ -111,7 +114,8 @@ public class SolverVisualizer {
         StdDraw.text(0.500 * N,  1.06 * N, title);
     }
     
-    private static void animateMove() {
+    @SuppressWarnings("deprecation")
+	private static void animateMove() {
         int milliseconds = 0;
         while (milliseconds < ANIMATE_TIME + PAUSE_TIME) {
             refresh(milliseconds);
@@ -120,7 +124,8 @@ public class SolverVisualizer {
         }   
     }
     
-    public static void main(String[] args) {
+    @SuppressWarnings("deprecation")
+	public static void main(String[] args) {
         // for each command-line argument
         for (String filename : args) {
 
