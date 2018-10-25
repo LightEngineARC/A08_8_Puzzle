@@ -15,7 +15,15 @@ public class Board
 	public Board(int[][] blocks)
 	{
 		// TODO implement constructor
-		//FIXME use a single array or a 2D array. regular array is significantly less memory.
+		this.N = blocks.length;
+		board = new int[N*N];
+		int row = 0;
+		for(int i = 0;i<N;i++) {
+			for(int j = 0; j<N;j++) {
+				board[row+j]=blocks[i][j];
+			}
+			row = row+N;
+		}
 	}
 
 	public int size() {
@@ -77,10 +85,41 @@ public class Board
 	    return s.toString();
 	}
 	
+	public int[] getBoard() {
+		return this.board;
+	}
+	public int getSize() {
+		return N;
+	}
+	
 	
 	
 	// TEST CLIENT
 	public static void main(String[] args) {
+		int[][] array = {{1,2,3},{4,5,6},{7,8,0}};
+		Board board = new Board(array);
+		
+		testPrint(board);
+		
+		int[][] array2 = {
+				{1,2,3,4},
+				{5,6,7,8},
+				{9,10,11,12},
+				{13,14,15,0}
+		};
+		Board board2 = new Board(array2);
+		testPrint(board2);
+		
+		
+		
+	}
+	private static void testPrint(Board b) {
+		System.out.println(b.getSize());
+		
+		for(int i = 0;i<b.getSize()*b.getSize();i++) {
+			System.out.print(" "+b.getBoard()[i]+" ");
+		}
+		System.out.println("\n");
 		
 	}
 }
