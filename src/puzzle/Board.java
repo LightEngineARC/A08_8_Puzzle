@@ -30,7 +30,13 @@ public class Board
 	}
 	
 	public int hamming() {
-		return 0;//TODO the number of blocks out of place
+		int count = 0;
+		for(int i=0;i<this.size()*this.size()-1;i++) {
+			if(this.board[i] != i+1) {
+				count++;
+			}
+		}
+		return count;//the number of blocks out of place not counting the zero
 	}
 	
 	public int manhattan()
@@ -53,6 +59,10 @@ public class Board
 	
 	public boolean isSolvable()
 	{
+		//if board size even
+		
+		//if board size odd
+		
 		// TODO implement isSolvable
 		return false;
 	}
@@ -80,24 +90,23 @@ public class Board
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		//TODO update this implementation
 	    StringBuilder s = new StringBuilder();
 	    s.append(N + "\n");
-//	    for (int i = 0; i < N; i++) {
-//	        for (int j = 0; j < N; j++) {
-//	            s.append(String.format("%2d ", tiles[i][j]));
-//	        }
-//	        s.append("\n");
-//	    }
+		
+		for(int i = 0;i<this.size()*this.size();i++) {
+			s.append(""+this.getBoard()[i]+" ");
+			if((i+1)%this.size()==0) {
+				s.append("\n");
+			}
+		}	    
 	    return s.toString();
 	}
 	
 	public int[] getBoard() {
 		return this.board;
 	}
-	public int getSize() {
-		return N;
-	}
+
+
 	
 	
 	// =============================================================
@@ -115,23 +124,19 @@ public class Board
 		assert(board.tileAt(2, 0)==7);
 		assert(board.tileAt(2, 1)==8);
 		assert(board.tileAt(2, 2)==0);
+		assert(board.hamming()==0);
 		testPrint(board);
 		int[][] array2 = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{14,13,15,0}};
 		Board board2 = new Board(array2);
 		testPrint(board2);
+		assert(board2.hamming()==2);
+		
 		
 		
 	}
 	private static void testPrint(Board b) {
-		System.out.println(b.getSize());
-		
-		for(int i = 0;i<b.getSize()*b.getSize();i++) {
-			System.out.print(""+b.getBoard()[i]+" ");
-			if((i+1)%b.size()==0) {
-				System.out.println();
-			}
-		}
+		System.out.print(b.toString());
 		System.out.println("Is goal? "+b.isGoal());
-		System.out.println("tile at N,N: " +b.tileAt(b.getSize()-1, b.getSize()-1)+"\n");
+		System.out.println("tile at N,N: " +b.tileAt(b.size()-1, b.size()-1)+"\n");
 	}
 }
