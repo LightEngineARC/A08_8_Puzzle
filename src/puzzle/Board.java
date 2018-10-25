@@ -64,4 +64,20 @@ public class Board
 		// TODO implement
 		return 0;
 	}
+	/**
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		//TODO update this implementation
+	    StringBuilder s = new StringBuilder();
+//	    s.append(N + "\n");
+//	    for (int i = 0; i < N; i++) {
+//	        for (int j = 0; j < N; j++) {
+//	            s.append(String.format("%2d ", tiles[i][j]));
+//	        }
+//	        s.append("\n");
+//	    }
+	    return s.toString();
+	}
 }
