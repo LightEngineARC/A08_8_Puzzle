@@ -6,6 +6,8 @@ package puzzle;
 
 public class Board
 {
+	private int N;
+	private int[] board;
 
 	/**
 	 * @param blocks
@@ -13,52 +15,46 @@ public class Board
 	public Board(int[][] blocks)
 	{
 		// TODO implement constructor
-		//FIXME decide to use a single array or a 2D array. regular array is significantly less memory.
+		//FIXME use a single array or a 2D array. regular array is significantly less memory.
 	}
 
-	/**
-	 * Method     : NAME
-	 *
-	 * Purpose    : DESCRIPTION
-	 *
-	 * @params
-	 *
-	 * @returns
-	 *
-	 */
+	public int size() {
+		return N;
+	}
+	
+	public int hamming() {
+		return 0;//TODO the number of blocks out of place
+	}
+	
+	public int manhattan()
+	{
+		// TODO  sum of Manhattan distances between blocks and goal
+		return 0;
+	}
+
+	
+	//TODO create n*n boards
+
+	public boolean isGoal() {
+		Board goalBoard;//TODO create a goal board for size N
+		return false; //this.equals(goalBoard);
+	}
+	
 	public boolean isSolvable()
 	{
 		// TODO implement isSolvable
 		return false;
 	}
-	//TODO create n*n boards
-
-	/**
-	 * Method     : NAME
-	 *
-	 * Purpose    : DESCRIPTION
-	 *
-	 * @params
-	 *
-	 * @returns
-	 *
-	 */
-	public int manhattan()
-	{
-		// TODO implement
-		return 0;
+	
+	
+	public boolean equals(Board b) {
+		return false; //return this.equals(b);
 	}
 
-	/**
-	 * Method     : NAME
-	 *
-	 * Purpose    : DESCRIPTION
-	 *
-	 * @params
-	 *
-	 * @returns
-	 *
-	 */
+	
+
+
+
 	public int tileAt(int row, int col)
 	{
 		// TODO implement
@@ -79,5 +75,12 @@ public class Board
 //	        s.append("\n");
 //	    }
 	    return s.toString();
+	}
+	
+	
+	
+	// TEST CLIENT
+	public static void main(String[] args) {
+		
 	}
 }
