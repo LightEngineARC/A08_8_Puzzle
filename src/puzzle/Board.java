@@ -46,16 +46,7 @@ public class Board
 	}
 
 
-	public boolean isGoal() {
-		for(int i=0;i<this.size()*this.size();i++) {
-			if(board[i]!=0) {
-			if(board[i]!=i+1) {
-				return false;
-			}
-			}
-		}
-		return true;
-	}
+	
 	
 	public boolean isSolvable()
 	{
@@ -65,6 +56,18 @@ public class Board
 		
 		// TODO implement isSolvable
 		return false;
+	}
+	
+	
+	public boolean isGoal() {
+		for(int i=0;i<this.size()*this.size();i++) {
+			if(board[i]!=0) {
+			if(board[i]!=i+1) {
+				return false;
+			}
+			}
+		}
+		return true;
 	}
 	
 	public boolean equals(Board b) {
