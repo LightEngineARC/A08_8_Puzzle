@@ -1,14 +1,18 @@
 package puzzle;
 
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.MinPQ;
 import edu.princeton.cs.algs4.StdOut;
 
 public class Solver
 {
-	private SearchNode rootSearchNode;
+	private SearchNode solutionSearchNode;
 
 	public Solver(Board initial) 	 
 	{
+		MinPQ<SearchNode> queue = new MinPQ<SearchNode>();
+		queue.insert(new SearchNode(initial));
+		
 		// TODO find a solution to the initial board (using the A* algorithm)
 		 
 	}

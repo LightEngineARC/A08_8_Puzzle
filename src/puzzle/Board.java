@@ -54,10 +54,10 @@ public class Board
 
 	public boolean isSolvable()
 	{
-		//if board size even
+		//TODO implement if board size is even
 		
-		//if board size odd
-		// TODO implement isSolvable
+		//TODO implement if board size is odd
+		
 		return false;
 	}
 	
@@ -126,10 +126,12 @@ public class Board
 		return true;
 	}
 	
-	public boolean equals(Board b) {
-		if(this.size()!=b.size())
+	public boolean equals(Object b) {
+		if(b==this)
+			return true;
+		if(this.size()!=((Board) b).size()||!(b instanceof Board))
 			return false;
-		int[] thatBoard = b.getBoard();
+		int[] thatBoard = ((Board) b).getBoard();
 		for(int i= 0;i<board.length;i++) {
 			if(this.board[i] != thatBoard[i]) {
 				return false;
@@ -230,6 +232,9 @@ public class Board
 		Board board4 = board3.swap(2, 2, 2, 1);
 		Board board5 = board3.swap(1, 1, 2, 1);
 		testPrint(board4);
+		System.out.println("----------TEST EQUALS----------");
+		assert(board4.equals(board));
+		System.out.println(board4.equals(board));
 		
 		//TEST NEIGHBORS
 		System.out.println("-----------------TEST NEIGHBORS------------------");
