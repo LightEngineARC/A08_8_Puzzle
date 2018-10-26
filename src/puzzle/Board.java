@@ -55,14 +55,16 @@ public class Board
 	public boolean isSolvable()
 	{
 		//if board size even
+		
 		//if board size odd
 		// TODO implement isSolvable
 		return false;
 	}
 	
 	public Iterable<Board> neighbors(){
+		
 		Queue<Board> queue = new Queue<Board>();
-		//TODO return an iterable
+		
 		int space = find(0);
 		int row = space/N;
 		int col = space%N;
@@ -82,19 +84,11 @@ public class Board
 		
 		return queue;
 	}
-	/**
-	 * Method     : NAME
-	 *
-	 * Purpose    : DESCRIPTION
-	 *
-	 * @params
-	 *
-	 * @returns
-	 *
-	 */
+
+
 	private Board swap(int row1, int col1, int row2, int col2)
 	{
-		//TODO swap a number with the zero
+		//swap a number with the zero
 		Board board2 = new Board(board.clone());
 		board2.setTile(row1*N, col1, board[row2*N+col2]);
 		board2.setTile(row2*N, col2, board[row1*N+col1]);
@@ -209,6 +203,7 @@ public class Board
 	// ++++++++++++++++     TEST CLIENT     ++++++++++++++++++++++++
 	// =============================================================
 	public static void main(String[] args) {
+		System.out.println("---------- BEGIN TESTS ----------");
 		int[][] array = {{1,2,3},{4,5,6},{7,8,0}};
 		Board board = new Board(array);
 		assert(board.tileAt(0, 0)==1);
@@ -243,7 +238,7 @@ public class Board
 			testPrint(b);
 		}
 		
-		
+		System.out.println("----- TEST COMPLETE -----");
 	}
 	private static void testPrint(Board b) {
 		System.out.print(b.toString());

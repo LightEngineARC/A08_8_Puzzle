@@ -5,6 +5,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class Solver
 {
+	private SearchNode rootSearchNode;
 
 	public Solver(Board initial) 	 
 	{

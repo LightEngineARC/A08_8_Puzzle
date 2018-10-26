@@ -1,24 +1,32 @@
 package puzzle;
 
-public class SearchNode
+public class SearchNode implements Comparable<SearchNode>
 {
-	private Board board;
-	private int moves;
-	private int priority;
+	public Board board;
+	private int moves = 0;
 	public SearchNode previous;
 	
 
-	public SearchNode(Board b, int moves, int priority, SearchNode previous) {
+	public SearchNode(Board b, int moves, SearchNode previous) {
 		this.board = b;
-		this.moves = moves;
-		this.priority = priority;
+		this.moves = previous.moves+1;
 		this.previous = previous;
 	}
-	
-	public int nodeHamming() {
-		return board.hamming();
+	public SearchNode(Board b, SearchNode previous) {
+		this.board = b;
+		this.moves = previous.moves+1;
+		this.previous = previous;
 	}
-	public int nodeManhattan() {
-		return board.manhattan();
+	public SearchNode(Board b) {
+		this.board = b;
+	}
+
+	/**
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(SearchNode node)
+	{
+		return (this.board.manhattan()-node.board.manhattan())+(this.moves-node.moves);
 	}
 }
