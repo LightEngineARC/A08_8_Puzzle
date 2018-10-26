@@ -42,7 +42,11 @@ public class Board
 	public int manhattan()
 	{
 		// TODO  sum of Manhattan distances between blocks and goal
-		return 0;
+		int sum=0;
+		for(int i=0; i<board.length;i++) {
+			sum += distance(board[i]);
+		}
+		return sum;
 	}
 
 
@@ -81,6 +85,33 @@ public class Board
 		}
 		return true;
 	}
+	
+	/*
+	 * finds the distance a number needs to move to be in place.
+	 */
+	private int distance(int number) {
+		//TODO get the distance a number must move.
+		if(number==0)
+			return 0;
+		
+		int row = find(number)/N;
+		int col = find(number)%N;
+	
+		return Math.abs(row-(number-1)/N)+Math.abs(col-(number-1)%N);
+		
+	}
+	
+	/*
+	 * finds the row and column of an integer
+	 */
+	private int find(int n) {
+		for(int i = 0;i<board.length;i++) {
+			if(n==board[i]) {
+				return i;
+			}
+		}
+		return -1;
+	}
 
 
 	public int tileAt(int row, int col)
@@ -98,7 +129,7 @@ public class Board
 		
 		for(int i = 0;i<this.size()*this.size();i++) {
 			s.append(""+this.getBoard()[i]+" ");
-			if((i+1)%this.size()==0) {
+			if((i+1)%N==0) {
 				s.append("\n");
 			}
 		}	    
@@ -128,18 +159,24 @@ public class Board
 		assert(board.tileAt(2, 1)==8);
 		assert(board.tileAt(2, 2)==0);
 		assert(board.hamming()==0);
+		assert(board.manhattan()==0);
 		testPrint(board);
-		int[][] array2 = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{14,13,15,0}};
+		int[][] array2 = {{1,12,3,4},{5,6,7,8},{9,10,11,2},{14,13,15,0}};
 		Board board2 = new Board(array2);
 		testPrint(board2);
-		assert(board2.hamming()==2);
+		assert(board2.hamming()==4);
+		assert(board2.distance(14)==1);
+		assert(board2.distance(12)==4);
+		assert(board2.manhattan()==10);
+		
 		
 		
 		
 	}
 	private static void testPrint(Board b) {
 		System.out.print(b.toString());
-		System.out.println("Is goal? "+b.isGoal());
-		System.out.println("tile at N,N: " +b.tileAt(b.size()-1, b.size()-1)+"\n");
+		System.out.println("Hamming = "+b.hamming());
+		System.out.println("Manhattan = "+b.manhattan());
+		System.out.println("Is it a goal board? "+b.isGoal()+"\n");
 	}
 }
