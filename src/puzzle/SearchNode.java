@@ -18,4 +18,7 @@ public class SearchNode
 	public int nodeHamming() {
 		return board.hamming();
 	}
+	public int nodeManhattan() {
+		return board.manhattan();
+	}
 }

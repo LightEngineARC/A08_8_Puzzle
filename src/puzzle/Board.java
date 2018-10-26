@@ -4,14 +4,13 @@
 
 package puzzle;
 
+import edu.princeton.cs.algs4.Queue;
+
 public class Board
 {
 	private int N;
 	private int[] board;
 
-	/**
-	 * @param blocks
-	 */
 	public Board(int[][] blocks)
 	{
 		this.N = blocks.length;
@@ -23,6 +22,10 @@ public class Board
 			}
 			row = row+N;
 		}
+	}
+	public Board(int[] board) {
+		this.board = board;
+		this.N = (int) Math.sqrt(board.length);
 	}
 
 	public int size() {
@@ -41,7 +44,7 @@ public class Board
 	
 	public int manhattan()
 	{
-		// TODO  sum of Manhattan distances between blocks and goal
+		//sum of Manhattan distances between blocks and goal
 		int sum=0;
 		for(int i=0; i<board.length;i++) {
 			sum += distance(board[i]);
@@ -49,18 +52,73 @@ public class Board
 		return sum;
 	}
 
-
-	
-	
 	public boolean isSolvable()
 	{
 		//if board size even
-		
 		//if board size odd
-		
 		// TODO implement isSolvable
 		return false;
 	}
+	
+	public Iterable<Board> neighbors(){
+		Queue<Board> queue = new Queue<Board>();
+		//TODO return an iterable
+		int space = find(0);
+		int row = space/N;
+		int col = space%N;
+		int[] theNeighbors = hasNeighbors(space);
+		if(theNeighbors[0]==1) {
+			queue.enqueue(swap(row,col,row-1,col));
+		}
+		if(theNeighbors[1]==1) {
+			queue.enqueue(swap(row,col-1,row,col));
+		}
+		if(theNeighbors[2]==1) {
+			queue.enqueue(swap(row,col,row,col+1));
+		}
+		if(theNeighbors[3]==1) {
+			queue.enqueue(swap(row,col,row+1,col));
+		}
+		
+		return queue;
+	}
+	/**
+	 * Method     : NAME
+	 *
+	 * Purpose    : DESCRIPTION
+	 *
+	 * @params
+	 *
+	 * @returns
+	 *
+	 */
+	private Board swap(int row1, int col1, int row2, int col2)
+	{
+		//TODO swap a number with the zero
+		Board board2 = new Board(board.clone());
+		board2.setTile(row1*N, col1, board[row2*N+col2]);
+		board2.setTile(row2*N, col2, board[row1*N+col1]);
+		
+		return board2;
+	}
+
+	private int[] hasNeighbors(int space) {
+		int[] theNeighbors = {1,1,1,1};
+		if(space<N)
+			theNeighbors[0]=0;
+		if(space>N*N-N)
+			theNeighbors[3]=0;
+		if(space%N==0)
+			theNeighbors[1]=0;
+		if(space%N==N-1)
+			theNeighbors[2]=0;
+		
+		return theNeighbors;
+	}
+	
+//	private Board swap() {
+//		
+//	}
 	
 	
 	public boolean isGoal() {
@@ -90,7 +148,7 @@ public class Board
 	 * finds the distance a number needs to move to be in place.
 	 */
 	private int distance(int number) {
-		//TODO get the distance a number must move.
+		//get the distance a number must move.
 		if(number==0)
 			return 0;
 		
@@ -118,6 +176,10 @@ public class Board
 	{
 		return board[row*N + col];
 	}
+	private void setTile(int row, int col, int number) {
+		
+		this.board[row+col]=number;
+	}
 	
 	/**
 	 * 
@@ -136,7 +198,7 @@ public class Board
 	    return s.toString();
 	}
 	
-	public int[] getBoard() {
+	private int[] getBoard() {
 		return this.board;
 	}
 
@@ -168,8 +230,18 @@ public class Board
 		assert(board2.distance(14)==1);
 		assert(board2.distance(12)==4);
 		assert(board2.manhattan()==10);
+		int[][] array3 = {{1,2,3},{4,5,6},{7,0,8}};
+		Board board3 = new Board(array3);
+		Board board4 = board3.swap(2, 2, 2, 1);
+		Board board5 = board3.swap(1, 1, 2, 1);
+		testPrint(board4);
 		
-		
+		//TEST NEIGHBORS
+		System.out.println("-----------------TEST NEIGHBORS------------------");
+		testPrint(board5);
+		for(Board b : board5.neighbors()) {
+			testPrint(b);
+		}
 		
 		
 	}
