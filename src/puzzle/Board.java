@@ -54,11 +54,34 @@ public class Board
 
 	public boolean isSolvable()
 	{
-		//TODO implement if board size is even
+		boolean solvable = false;
+		if(this.N%2==1) {
+			//TODO implement if board size is odd inversions
+			solvable = (inversions()%2 != 1);
+		}else {
+			//TODO implement if board size is even blank row plus inversions, goal board is 3
+			int position=find(0)/N;
+			solvable = ((position+inversions())%3 == 0);
+		}
 		
-		//TODO implement if board size is odd
 		
-		return false;
+		return solvable;
+	}
+	private int inversions() {
+		int count = 0;
+		for(int i = 0; i<board.length-1; i++) {
+			if(board[i]==0)
+				continue;
+			
+			for(int j=i+1; j<board.length;j++) {
+				if(board[j]==0)
+					continue;
+				if(board[i]>board[j])
+					count++;
+			}
+		}
+		
+		return count;
 	}
 	
 	public Iterable<Board> neighbors(){
@@ -236,12 +259,22 @@ public class Board
 		assert(board4.equals(board));
 		System.out.println(board4.equals(board));
 		
-		//TEST NEIGHBORS
 		System.out.println("-----------------TEST NEIGHBORS------------------");
 		testPrint(board5);
 		for(Board b : board5.neighbors()) {
 			testPrint(b);
 		}
+		
+		System.out.println("---------- TEST INVERSIONS/ISSOLVABLE ----------");
+		
+		System.out.println("Goal Board " + board.inversions());
+		assert(board.inversions()==0);
+		
+		Board board6 = new Board(new int[][] {{1,2,3},{4,5,6},{8,7,0}});
+		System.out.println("board6 inversions;" + board6.inversions());
+		System.out.println("board6 isSolvable: "+board6.isSolvable());
+		Board board7 = new Board(new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,15,14,0}});
+		assert(board7.isSolvable()==false);
 		
 		System.out.println("----- TEST COMPLETE -----");
 	}
