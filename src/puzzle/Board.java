@@ -273,8 +273,8 @@ public class Board
 		Board board6 = new Board(new int[][] {{1,2,3},{4,5,6},{8,7,0}});
 		System.out.println("board6 inversions;" + board6.inversions());
 		System.out.println("board6 isSolvable: "+board6.isSolvable());
-		Board board7 = new Board(new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,15,14,0}});
-		assert(board7.isSolvable()==false);
+		Board board7 = new Board(new int[][] {{1,2,3,4},{5,6,7,8},{9,10,0,11},{13,15,14,12}});
+		assert(board7.isSolvable()==true);
 		
 		System.out.println("----- TEST COMPLETE -----");
 	}
