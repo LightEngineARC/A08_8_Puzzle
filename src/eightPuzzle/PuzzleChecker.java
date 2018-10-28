@@ -52,7 +52,6 @@ public class PuzzleChecker {
                 for (int j = 0; j < N; j++)
                     blocks[i][j] = in.readInt();
             Board initial = new Board(blocks);
-
             // check if puzzle is solvable; if so, solve it print out number of moves
             if (initial.isSolvable()) {
                 Stopwatch timer = new Stopwatch();
@@ -66,6 +65,8 @@ public class PuzzleChecker {
             else {
                 StdOut.printf("%-25s   unsolvable\n", filename);
             }
+            
         }
+        StdOut.print("\n\nDone");
     }
 }

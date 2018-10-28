@@ -53,18 +53,19 @@ public class Board
 	}
 
 	public boolean isSolvable()
-	{
+	{ 
+		if(this.isGoal())
+			return true;
 		boolean solvable = false;
 		if(this.N%2==1) {
-			//TODO implement if board size is odd inversions
+			//implement if board size is odd inversions
 			solvable = (inversions()%2 != 1);
 		}else {
-			//TODO implement if board size is even blank row plus inversions, goal board is 3
-			int position=find(0)/N;
-			solvable = ((position+inversions())%3 == 0);
+			//implement if board size is even blank row plus inversions, goal board is 3
+			if(N==2) {
+				solvable = ((find(0)/N+inversions())%3==1);
+			}else solvable = ((find(0)/N+inversions())%3 == 0);
 		}
-		
-		
 		return solvable;
 	}
 	private int inversions() {
@@ -101,6 +102,8 @@ public class Board
 		if(theNeighbors[2]==1) {
 			queue.enqueue(swap(row,col,row,col+1));
 		}
+		if(N<3)
+			return queue;
 		if(theNeighbors[3]==1) {
 			queue.enqueue(swap(row,col,row+1,col));
 		}
@@ -113,11 +116,32 @@ public class Board
 	{
 		//swap a number with the zero
 		Board board2 = new Board(board.clone());
-		board2.setTile(row1*N, col1, board[row2*N+col2]);
-		board2.setTile(row2*N, col2, board[row1*N+col1]);
+		board2.setTile(row1, col1, board[row2*N+col2]);
+		board2.setTile(row2, col2, board[row1*N+col1]);
 		
 		return board2;
 	}
+	public Board twin() {
+		int space = find(0);
+		int row = space/N;
+		int col = space%N;
+		int[] theNeighbors = hasNeighbors(space);
+		 if(theNeighbors[0]==1) {
+				return (swap(row,col,row-1,col));
+			}
+			if(theNeighbors[1]==1) {
+				return (swap(row,col-1,row,col));
+			}
+			if(theNeighbors[2]==1) {
+				return (swap(row,col,row,col+1));
+			}
+			if(theNeighbors[3]==1) {
+				return (swap(row,col,row+1,col));
+			}
+			return null;
+	}
+		
+
 
 	private int[] hasNeighbors(int space) {
 		int[] theNeighbors = {1,1,1,1};
@@ -132,11 +156,6 @@ public class Board
 		
 		return theNeighbors;
 	}
-	
-//	private Board swap() {
-//		
-//	}
-	
 	
 	public boolean isGoal() {
 		for(int i=0;i<this.size()*this.size();i++) {
@@ -197,7 +216,7 @@ public class Board
 	}
 	private void setTile(int row, int col, int number) {
 		
-		this.board[row+col]=number;
+		this.board[row*N+col]=number;
 	}
 	
 	/**
@@ -232,16 +251,9 @@ public class Board
 		int[][] array = {{1,2,3},{4,5,6},{7,8,0}};
 		Board board = new Board(array);
 		assert(board.tileAt(0, 0)==1);
-		assert(board.tileAt(0, 1)==2);
-		assert(board.tileAt(0, 2)==3);
-		assert(board.tileAt(1, 0)==4);
 		assert(board.tileAt(1,1)==5);
-		assert(board.tileAt(1,2)==6);
-		assert(board.tileAt(2, 0)==7);
-		assert(board.tileAt(2, 1)==8);
 		assert(board.tileAt(2, 2)==0);
-		assert(board.hamming()==0);
-		assert(board.manhattan()==0);
+		
 		testPrint(board);
 		int[][] array2 = {{1,12,3,4},{5,6,7,8},{9,10,11,2},{14,13,15,0}};
 		Board board2 = new Board(array2);
@@ -253,13 +265,14 @@ public class Board
 		int[][] array3 = {{1,2,3},{4,5,6},{7,0,8}};
 		Board board3 = new Board(array3);
 		Board board4 = board3.swap(2, 2, 2, 1);
-		Board board5 = board3.swap(1, 1, 2, 1);
+		
 		testPrint(board4);
 		System.out.println("----------TEST EQUALS----------");
 		assert(board4.equals(board));
 		System.out.println(board4.equals(board));
 		
 		System.out.println("-----------------TEST NEIGHBORS------------------");
+		Board board5 = board3.swap(1, 1, 2, 1);
 		testPrint(board5);
 		for(Board b : board5.neighbors()) {
 			testPrint(b);
@@ -273,15 +286,22 @@ public class Board
 		Board board6 = new Board(new int[][] {{1,2,3},{4,5,6},{8,7,0}});
 		System.out.println("board6 inversions;" + board6.inversions());
 		System.out.println("board6 isSolvable: "+board6.isSolvable());
-		Board board7 = new Board(new int[][] {{1,2,3,4},{5,6,7,8},{9,10,0,11},{13,15,14,12}});
+		Board board7 = new Board(new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,0,15}});
 		assert(board7.isSolvable()==true);
 		
+		Board board2x2 = new Board(new int[][] {{1,2},{0,3}});
+		
+		testPrint(board2x2.twin());
+		testPrint(board2x2);
 		System.out.println("----- TEST COMPLETE -----");
+		Board board80 = new Board(new int[][] {{0,12,9,13},{15,11,10,14},{3,7,5,6},{4,8,2,1}});
+		testPrint(board80);
 	}
 	private static void testPrint(Board b) {
 		System.out.print(b.toString());
 		System.out.println("Hamming = "+b.hamming());
 		System.out.println("Manhattan = "+b.manhattan());
-		System.out.println("Is it a goal board? "+b.isGoal()+"\n");
+		System.out.println("Is it a goal board? "+b.isGoal());
+		System.out.println("isSolvable: "+ b.isSolvable()+"\n");
 	}
 }

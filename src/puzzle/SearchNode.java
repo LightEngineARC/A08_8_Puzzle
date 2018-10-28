@@ -3,7 +3,7 @@ package puzzle;
 public class SearchNode implements Comparable<SearchNode>
 {
 	public Board board;
-	private int moves = 0;
+	public int moves = 0;
 	public SearchNode previous;
 	
 
@@ -12,13 +12,16 @@ public class SearchNode implements Comparable<SearchNode>
 		this.moves = previous.moves+1;
 		this.previous = previous;
 	}
+	
 	public SearchNode(Board b, SearchNode previous) {
 		this.board = b;
 		this.moves = previous.moves+1;
 		this.previous = previous;
 	}
+	
 	public SearchNode(Board b) {
 		this.board = b;
+		moves = 0;
 	}
 
 	/**

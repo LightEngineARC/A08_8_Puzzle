@@ -2,33 +2,62 @@ package puzzle;
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.MinPQ;
+import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdOut;
 
 public class Solver
 {
-	private SearchNode solutionSearchNode;
+	private SearchNode solutionNode;
 
 	public Solver(Board initial) 	 
 	{
 		MinPQ<SearchNode> queue = new MinPQ<SearchNode>();
 		queue.insert(new SearchNode(initial));
 		
-		// TODO find a solution to the initial board (using the A* algorithm)
-		 
-	}
+		
+		 MinPQ<SearchNode> queue2 = new MinPQ<SearchNode>();
+		queue2.insert(new SearchNode(initial.twin()));
+
+	        while(true) {
+	        	solutionNode = expand(queue);
+	            if (solutionNode != null|| expand(queue2) != null) return;
+	        }
+	    }
+	
+	private SearchNode expand(MinPQ<SearchNode> nodes) {
+        if(nodes.isEmpty()) return null;
+        SearchNode bestMove = nodes.delMin();
+        if (bestMove.board.isGoal()) return bestMove;
+        for (Board neighbor : bestMove.board.neighbors()) {
+            if (bestMove.previous == null || !neighbor.equals(bestMove.previous.board)) {
+            	nodes.insert(new SearchNode(neighbor, bestMove));
+            }
+        }
+        return null;
+    }
 	
 
 	public int moves()
 	{
-		// TODO min number of moves to solve initial board
-		return 0;
+		//min number of moves to solve initial board
+		return solutionNode.moves;
 	}
 
 
 	public Iterable<Board> solution()
 	{
-		// TODO // sequence of boards in a shortest solution
-		return null;
+		// sequence of boards in a shortest solution
+		Stack<SearchNode> stack  = new Stack<SearchNode>();
+		Queue<Board> queue = new Queue<Board>();
+		stack.push(solutionNode);
+		while(stack.peek().previous != null)
+			stack.push(stack.peek().previous);
+		
+		while(!stack.isEmpty())
+			queue.enqueue(stack.pop().board);
+		
+		return queue;
 	}
 	
 	
