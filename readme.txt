@@ -84,7 +84,7 @@ Order of growth of running time:
  *  Known bugs / limitations.
  *****************************************************************************/
 
-
+N/A
 
 /******************************************************************************
  *  Describe whatever help (if any) that you received.
@@ -92,7 +92,7 @@ Order of growth of running time:
  *  include any help from people (including course staff, lab TAs,
  *  classmates, and friends) and attribute them by name.
  *****************************************************************************/
-
+Whitney: I recieved help from my boyfriend Alex.
 
 
 
@@ -100,7 +100,7 @@ Order of growth of running time:
 /******************************************************************************
  *  Describe any serious problems you encountered.                    
  *****************************************************************************/
-
+N/A
 
 
 /******************************************************************************
@@ -109,7 +109,7 @@ Order of growth of running time:
  *  sentence explaining what each of you contributed.
  *****************************************************************************/
 
-
+Whitney did the Solver.java. Ashton setup up the project in github and did the Board.java
 
 
 
@@ -120,3 +120,4 @@ Order of growth of running time:
  *  on how much you learned from doing the assignment, and whether    
  *  you enjoyed doing it.                                             
  *****************************************************************************/
+ N/A
