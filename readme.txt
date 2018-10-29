@@ -18,7 +18,8 @@ Programming Assignment 4: Slider Puzzle
  *  (board + number of moves + previous search node).
  *****************************************************************************/
 
-
+With a class that has a link to the previous node and the board state.
+It also track number of moves.
 
 
 
@@ -76,7 +77,8 @@ Order of growth of running time:
  *****************************************************************************/
 
 
-
+By eliminating the ones I wouldn't prefer, I guess I would prefer a better priority function
+because it seems to be the most costly not being efficient.
 
 
 
